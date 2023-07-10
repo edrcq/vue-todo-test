@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import IconTrash from '../icons/IconTrash.vue';
 import IconDone from '../icons/IconDone.vue';
-import { computed, inject, ref } from 'vue';
+import { computed, ref } from 'vue';
 import TodoListEdit from './TodoListEdit.vue';
 import IconEdit from '../icons/IconEdit.vue';
-import { EditLabelKey, type editLabelFunc } from '@/types/inject.types';
 import useStore from '@/composables/useStore'
 
 const store = useStore()
@@ -18,10 +17,7 @@ const props = defineProps<{
 const emit = defineEmits<{
     (e: 'click:delete'): void,
     (e: 'click:done'): void,
-    (e: 'edit:label', value: string): void
 }>()
-
-const editLabel = inject<editLabelFunc>('editLabel')
 
 const editing = ref(false)
 const tempValue = ref('')
@@ -29,8 +25,7 @@ const tempValue = ref('')
 const handleEdit = () => {
     if (editing.value) {
         // save
-        if (editLabel)
-            editLabel(props.index, tempValue.value);
+        store.editLabel(props.index, tempValue.value);
         editing.value = false
     } else {
         tempValue.value = props.label
