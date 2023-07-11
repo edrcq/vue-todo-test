@@ -1,17 +1,20 @@
 <script setup lang="ts">
-import { provide, ref, toRef } from 'vue';
-import type { ITodoItem } from '@/types/todo.types'
+import { ref } from 'vue';
 import TodoListItem from './TodoListItem.vue';
-import { EditLabelKey } from '@/types/inject.types';
-import useStore from '@/composables/useStore'
+import { useTodosStore } from '@/stores/todos';
 
-const store = useStore()
+const props = defineProps<{
+    slug: string
+}>()
 
-// const list = ref<ITodoItem[]>([])
+const todoStore = useTodosStore()
+
+const todolist = todoStore.getBySlug(props.slug)
+
 const newItem = ref('')
 
 const handleSubmit = () => {
-    store.addItem(newItem.value)
+    todoStore.addItem(props.slug, newItem.value)
     newItem.value = ''
 }
 </script>
@@ -21,13 +24,13 @@ const handleSubmit = () => {
         <form @submit.prevent="handleSubmit">
             <input type="text" v-model="newItem">
         </form>
-        <ul v-if="store.state.list.length > 0">
+        <ul v-if="todolist.items.length > 0">
             <TodoListItem
-                v-for="(item, i) in store.state.list" :key="i"
+                v-for="(item, i) in todolist.items" :key="i"
                 v-bind="item"
                 :index="i"
-                @click:delete="store.deleteItem(i)"
-                @click:done="store.doIt(i)"
+                @click:delete="todoStore.deleteItem(slug, i)"
+                @click:done="todoStore.doIt(slug, i)"
             >
             </TodoListItem>
         </ul>

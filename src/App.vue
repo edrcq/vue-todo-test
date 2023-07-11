@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router'
 // import HelloWorld from './components/HelloWorld.vue'
 // import ListCourse from './components/ListCourse.vue';
 import  TodoList from './components/todo/TodoList.vue';
@@ -9,7 +9,16 @@ import TestCode from './components/tcode/TestCode.vue'
 
 <template>
   <div>
-    <TodoList />
+    <RouterLink :to="{ name: 'todos' }">
+    Go to Todos page
+    </RouterLink>
+    
+    <RouterLink :to="{ name: 'about' }">
+    Go to About page
+    </RouterLink>
+    
+    <hr>
+    <RouterView />
     <hr>
   </div>
 </template>
