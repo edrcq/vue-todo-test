@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 // import HelloWorld from './components/HelloWorld.vue'
 // import ListCourse from './components/ListCourse.vue';
 import  TodoList from './components/todo/TodoList.vue';
-import TestCode from './components/tcode/TestCode.vue'
+// import TestCode from './components/tcode/TestCode.vue'
 // aaabbbc
 </script>
 
