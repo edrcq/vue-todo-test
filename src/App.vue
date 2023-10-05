@@ -12,7 +12,7 @@ import  TodoList from './components/todo/TodoList.vue';
     <RouterLink :to="{ name: 'todos' }">
     Go to Todos page
     </RouterLink>
-    
+    <br>
     <RouterLink :to="{ name: 'about' }">
     Go to About page
     </RouterLink>
